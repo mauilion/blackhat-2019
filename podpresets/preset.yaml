@@ -1,0 +1,18 @@
+apiVersion: settings.k8s.io/v1alpha1
+kind: PodPreset
+metadata:
+  name: example
+spec:
+  selector:
+    matchExpressions:
+      - key: disable
+        operator: DoesNotExist
+  env:
+    - name: hacked
+      value: "true"
+  volumeMounts:
+    - mountPath: /certsmaybe
+      name: certs-volume
+  volumes:
+    - name: certs-volume
+      emptyDir: {}

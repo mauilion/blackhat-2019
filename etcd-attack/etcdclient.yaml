@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    component: etcdclient
+    tier: debug
+  name: etcdclient
+spec:
+  containers:
+  - command:
+    - sleep
+    - 9999d
+    image: k8s.gcr.io/etcd:3.3.10 # using the etcd image that ships with kubernetes.
+    name: etcdclient
+    env:
+    - name: ETCDCTL_API
+      value: "3"
+    - name: ETCDCTL_CACERT
+      value: /etc/kubernetes/pki/etcd/ca.crt
+    - name: ETCDCTL_CERT
+      value: /etc/kubernetes/pki/etcd/healthcheck-client.crt
+    - name: ETCDCTL_KEY
+      value: /etc/kubernetes/pki/etcd/healthcheck-client.key
+    - name: ETCDCTL_ENDPOINTS
+      value: "https://127.0.0.1:2379"
+    - name: ETCDCTL_CLUSTER
+      value: "true"
+    volumeMounts:
+    - mountPath: /etc/kubernetes/pki/etcd
+      name: etcd-certs
+      readOnly: true
+  hostNetwork: true #hostNetwork!!!
+  nodeName: kind-control-plane #doing the work of the scheduler directly!
+  volumes:
+  - hostPath: #hostpath!!!
+      path: /etc/kubernetes/pki/etcd
+      type: DirectoryOrCreate
+    name: etcd-certs

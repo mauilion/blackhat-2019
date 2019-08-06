@@ -1,0 +1,8 @@
+quay.io/mauilion/dind:master
+calico/cni:v3.8.1
+calico/pod2daemon-flexvol:v3.8.1
+calico/node:v3.8.1
+quay.io/coreos/flannel:v0.11.0
+alpine:3.7
+nginx:stable
+bash:5

@@ -1,0 +1,27 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubeadm-kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: psp-permissive
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: system:node:kind-control-plane
+- kind: ServiceAccount
+  name: flannel
+  namespace: kube-system
+- kind: ServiceAccount
+  name: coredns
+  namespace: kube-system
+- kind: ServiceAccount
+  name: kube-proxy
+  namespace: kube-system
+- kind: Group
+  apiGroup: rbac.authorization.k8s.io
+  name: system:nodes
+- kind: User
+  apiGroup: rbac.authorization.k8s.io
+  name: kubelet
