@@ -22,6 +22,9 @@
 #
 DEMO_PROMPT="${GREEN}➜ ${CYAN}\W "
 
+kubectl delete clusterrolebinding allow-all-kube-system
+kubectl create ns secure
+kubectl create rolebinding secure-admin -n secure --clusterrole=admin --serviceaccount=secure:default
 # hide the evidence
 clear
 
@@ -32,12 +35,9 @@ clear
 #fi
 
 #pe "cd stuff"
-
-p "let's try to deploy some of these attack pods with a more restrictive psp policy in place."
-pe "kubectl delete clusterrolebinding allow-all-kube-system"
-pe "kubectl create ns secure"
-pe "kubectl create rolebinding secure-admin -n secure --clusterrole=admin --serviceaccount=secure:default"
-p "let's try to deploy the etcdclient.yaml"
+p "First let's look at the pod security policies available in the cluster"
+pe "kubectl describe psp"
+p "Now let's try to deploy some of these pods with a only the restrictive psp policy in place."
 pe "kubectl apply -n secure -f etcd-attack/etcdclient.yaml --as system:serviceaccount:secure:default"
 p "what about the dind manifest"
 pe "kubectl apply -n secure -f dind/dind-no-privs.yaml --as system:serviceaccount:secure:default"
@@ -45,7 +45,8 @@ p "we can still deploy reasonable things though! let's try nginx"
 pe "kubectl create -n secure deployment nginx  --image=nginx:stable --as system:serviceaccount:secure:default"
 pe "kubectl scale -n secure deployment nginx --replicas=3 --as system:serviceaccount:secure:default"
 pe "kubectl get pods -n secure"
-pe "kubectl delete ns -n secure --wait=false"
 # show a prompt so as not to reveal our true nature after
 # the demo has concluded
 p ""
+kubectl delete ns -n secure --wait=false 2>&1>/dev/null
+
