@@ -13,11 +13,11 @@ The `k8s_root` and `dind` demos do require that the laptop be running some linux
 For both of these examples we are joining the laptop to the kind cluster as a node.
 
 
-Other resources.
+Other resources:
 
-report a vuln [k8s.io/security](k8s.io/security)
-ask questions! [slack.k8s.io](slack.k8s.io) #security and #sig-auth
-cve's are announed as part of the [announce google group](https://groups.google.com/forum/#!forum/kubernetes-announce)
+ - report a vuln [k8s.io/security](https://k8s.io/security)
+ - ask questions! [slack.k8s.io](https://slack.k8s.io) #security and #sig-auth
+ - [CVEs](https://cve.mitre.org/) are announced as part of the [announce google group](https://groups.google.com/forum/#!forum/kubernetes-announce)
 
 
 Any questions or feedback please reach out!
