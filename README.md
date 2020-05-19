@@ -1,5 +1,7 @@
 ## Resources for [The path less traveled: Abusing Kubernetes Defaults](https://www.blackhat.com/us-19/briefings/schedule/index.html#the-path-less-traveled-abusing-kubernetes-defaults-17049)
 
+### [Video here](https://www.youtube.com/watch?v=HmoVSmTIOxM)
+
 This repo has all of the manifests and demo scripts used for this presentation.
 
 The cluster was built using kind.sigs.k8s.io and run entirely from the presenter laptop.
